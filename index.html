@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaultara - Professional File Encryption</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main Screen -->
+        <div id="main-screen" class="screen active">
+            <div class="main-content">
+                <div class="brand-section">
+                    <div class="brand-logo">
+                        <!-- Vaultara Logo Placeholder - Replace with actual logo -->
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTYiIGZpbGw9IiMyMTc4RkYiLz4KPHN2ZyB4PSIyMCIgeT0iMjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CjxyZWN0IHg9IjMiIHk9IjExIiB3aWR0aD0iMTgiIGhlaWdodD0iMTAiIHJ4PSIyIiByeT0iMiIvPgo8Y2lyY2xlIGN4PSIxMiIgY3k9IjciIHI9IjQiLz4KPHBhdGggZD0ibSA5IDcgMiAyIDQgLTQiLz4KPC9zdmc+Cjwvc3ZnPgo=" alt="Vaultara" class="logo-image">
+                    </div>
+                    <h1 class="brand-title">Vaultara</h1>
+                    <p class="brand-subtitle">Professional File Encryption</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">🛡️</span>
+                        <span class="feature-text">AES-256-GCM</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⚡</span>
+                        <span class="feature-text">4GB Limit</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔑</span>
+                        <span class="feature-text">Recovery Keys</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-button encrypt-action" id="encrypt-btn">
+                        <div class="button-icon">🔒</div>
+                        <div class="button-text">
+                            <div class="button-title">Encrypt File</div>
+                            <div class="button-subtitle">Secure your files</div>
+                        </div>
+                    </button>
+                    
+                    <button class="action-button decrypt-action" id="decrypt-btn">
+                        <div class="button-icon">🔓</div>
+                        <div class="button-text">
+                            <div class="button-title">Decrypt File</div>
+                            <div class="button-subtitle">Access encrypted files</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Encrypt Screen -->
+        <div id="encrypt-screen" class="screen">
+            <div class="screen-header">
+                <button class="back-button" id="encrypt-back">← Back</button>
+                <h2 class="screen-title">Encrypt File</h2>
+            </div>
+            
+            <div class="screen-content">
+                <!-- Step 1: File Upload -->
+                <div class="step-section" id="encrypt-step-1">
+                    <div class="upload-zone" id="encrypt-upload-zone">
+                        <div class="upload-icon">📁</div>
+                        <h3 class="upload-title">Select File to Encrypt</h3>
+                        <p class="upload-subtitle">Drag & drop or click to select</p>
+                        <p class="upload-limit">Maximum file size: <span class="file-size-limit">4GB</span></p>
+                    </div>
+                    <input type="file" id="encrypt-file-input" class="file-input">
+                    
+                    <div class="file-preview" id="encrypt-file-preview" style="display: none;">
+                        <div class="file-info">
+                            <div class="file-icon">📄</div>
+                            <div class="file-details">
+                                <div class="file-name" id="encrypt-file-name"></div>
+                                <div class="file-size" id="encrypt-file-size"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary" id="encrypt-continue">Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Password -->
+                <div class="step-section" id="encrypt-step-2" style="display: none;">
+                    <h3 class="step-title">Set Encryption Password</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" id="encrypt-password" class="form-control" placeholder="Enter a strong password">
+                            <button type="button" class="password-toggle" data-target="encrypt-password">👁️</button>
+                        </div>
+                        <div class="password-strength" id="password-strength"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <div class="input-group">
+                            <input type="password" id="encrypt-password-confirm" class="form-control" placeholder="Confirm your password">
+                            <button type="button" class="password-toggle" data-target="encrypt-password-confirm">👁️</button>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn--primary btn--full-width" id="start-encrypt">Encrypt File</button>
+                </div>
+
+                <!-- Step 3: Processing & Results -->
+                <div class="step-section" id="encrypt-step-3" style="display: none;">
+                    <div class="processing-state" id="encrypt-processing">
+                        <div class="processing-spinner"></div>
+                        <h3 class="processing-title">Encrypting File...</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="encrypt-progress"></div>
+                        </div>
+                    </div>
+
+                    <div class="result-state" id="encrypt-result" style="display: none;">
+                        <div class="success-icon">✓</div>
+                        <h3 class="result-title">File Encrypted Successfully</h3>
+                        
+                        <div class="result-cards">
+                            <div class="result-card">
+                                <h4 class="card-title">Recovery Key</h4>
+                                <div class="copy-group">
+                                    <input type="text" id="recovery-key" class="form-control" readonly>
+                                    <button class="copy-button" data-target="recovery-key">Copy</button>
+                                </div>
+                                <p class="card-note">Save this key! Required for decryption</p>
+                            </div>
+                        </div>
+
+                        <div class="result-actions">
+                            <button class="btn btn--primary" id="download-encrypted">Download Encrypted File</button>
+                            <button class="btn btn--secondary" id="encrypt-new">Encrypt Another File</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decrypt Screen -->
+        <div id="decrypt-screen" class="screen">
+            <div class="screen-header">
+                <button class="back-button" id="decrypt-back">← Back</button>
+                <h2 class="screen-title">Decrypt File</h2>
+            </div>
+            
+            <div class="screen-content">
+                <div class="upload-zone" id="decrypt-upload-zone">
+                    <div class="upload-icon">🔐</div>
+                    <h3 class="upload-title">Select Encrypted File</h3>
+                    <p class="upload-subtitle">Drag & drop or click to select</p>
+                    <p class="upload-limit">Supports files up to <span class="file-size-limit">4GB</span></p>
+                </div>
+                <input type="file" id="decrypt-file-input" class="file-input">
+                
+                <div class="file-preview" id="decrypt-file-preview" style="display: none;">
+                    <div class="file-info">
+                        <div class="file-icon">🔐</div>
+                        <div class="file-details">
+                            <div class="file-name" id="decrypt-file-name"></div>
+                            <div class="file-size" id="decrypt-file-size"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="decrypt-form" id="decrypt-form" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" id="decrypt-password" class="form-control" placeholder="Enter your password">
+                            <button type="button" class="password-toggle" data-target="decrypt-password">👁️</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Recovery Key</label>
+                        <textarea id="decrypt-recovery-key" class="form-control" rows="3" placeholder="Paste your recovery key here"></textarea>
+                    </div>
+                    
+                    <button class="btn btn--primary btn--full-width" id="start-decrypt">Decrypt File</button>
+                </div>
+
+                <div class="processing-state" id="decrypt-processing" style="display: none;">
+                    <div class="processing-spinner"></div>
+                    <h3 class="processing-title">Decrypting File...</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="decrypt-progress"></div>
+                    </div>
+                </div>
+
+                <div class="result-state" id="decrypt-result" style="display: none;">
+                    <div class="success-icon">✓</div>
+                    <h3 class="result-title">File Decrypted Successfully</h3>
+                    <div class="result-actions">
+                        <button class="btn btn--primary" id="download-decrypted">Download Original File</button>
+                        <button class="btn btn--secondary" id="decrypt-new">Decrypt Another File</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manual Copy Modal -->
+        <div class="modal hidden" id="manual-copy-modal">
+            <div class="modal-overlay" id="modal-overlay"></div>
+            <div class="modal-content">
+                <h3 class="modal-title">Manual Copy Required</h3>
+                <p class="modal-text">Automatic copy failed. Please manually copy the text below:</p>
+                <textarea class="form-control" id="manual-copy-text" readonly rows="4"></textarea>
+                <div class="modal-actions">
+                    <button class="btn btn--primary" id="modal-close">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Single Notification Container -->
+    <div class="notification hidden" id="notification"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
